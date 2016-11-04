@@ -274,6 +274,11 @@ bool Matrix::isPosLocked(unsigned int i, unsigned int j) {
 }
 
 void Matrix::updateScore(bool opt) {
+  if (!opt) {
+    m_label->setText(m_info + "0");
+    m_score = 0;
+    return;
+  }
   m_label->setText(m_info + QString::number(m_score));
   ++m_score;
   if (m_update) {
