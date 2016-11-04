@@ -75,17 +75,21 @@ void Matrix::timerOut() {
     qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_cnt % m_height)->layout())->itemAt(m_current_col)->widget());
   position->setColor(m_current_color);
   ++m_cnt;
-  //std::cout << "Cnt: " << m_cnt << std::endl;
   if (m_cnt == m_track.at(m_current_col) + 1) {
     if (m_cnt != m_height) {
       Position *next =
 	qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_cnt)->layout())->itemAt(m_current_col)->widget());
       if (m_current_color ==
 	  next->getColor()) {
-	//paint it, dont lock it
-	//position->setColor(m_current_color);
-	//just add score
+	//paint it, just add score
 	updateScore(true);
+	//and unlock position
+	int index = m_locked_pos.indexOf(qMakePair(m_cnt, m_current_col));
+	std::cout << "Found at index: " << index << std::endl;
+	m_locked_pos.removeAt(index);
+	next->unLock();
+	unsigned int nr = m_track.at(m_current_col);
+	m_track.replace(m_current_col, ++nr);
 	m_cnt = 0;
 	m_current_col = rand() % m_width;
 	//switch color
@@ -98,7 +102,6 @@ void Matrix::timerOut() {
 	position->lock(m_cnt-1, m_current_col);
 	position->setColor(m_current_color);
 	m_locked_pos << qMakePair(m_cnt-1, m_current_col);
-	//printLocked();
 	unsigned int nr = m_track.at(m_current_col);
 	if (nr == 0) {
 	  std::cout << "Reached limit (you lost ;-)\n";
@@ -109,7 +112,6 @@ void Matrix::timerOut() {
 	  m_timer->stop();
 	} else {
 	  m_track.replace(m_current_col, --nr);
-	  //printAvailable();
 	  //switch column
 	  m_current_col = rand() % m_width;
 	  //restart cnt
@@ -167,7 +169,6 @@ void Matrix::fillDefault() {
 }
 
 void Matrix::keyPressEvent(QKeyEvent* event) {
-  if (!m_timer->isActive()) return;
   if (event->key() == LEFT) {
     if (m_current_col == 0) {
       return;
@@ -220,11 +221,13 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
     fillDefault();
   } else if (event->key() == ESC && m_debug) {
     if (m_timer->isActive()) {
+      std::cout << "Stopping...\n";
       m_timer->stop();
     } else {
+      std::cout << "Resuming...\n";
       m_timer->start(m_ms);
     }
-  } else if (event->key() == ASCII_ENTER && m_debug) {
+  } else if (event->key() == ASCII_SPACE && m_debug) {
     printLocked();
   }
 }

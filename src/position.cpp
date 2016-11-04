@@ -30,6 +30,10 @@ void Position::lock(unsigned int i,
   m_locked = true;
 }
 
+void Position::unLock() {
+  m_locked = false;
+}
+
 bool Position::isLocked() {
   return m_locked;
 }

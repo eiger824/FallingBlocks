@@ -18,6 +18,7 @@ public:
   ~Position();
   void lock(unsigned int i, unsigned int j);
   bool isLocked();
+  void unLock();
   void setColor(COLOR color);
   COLOR getColor();
   QPair<unsigned int,unsigned int> getXY();
