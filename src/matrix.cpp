@@ -56,7 +56,7 @@ Matrix::Matrix(bool debug,
   }
 
   for (unsigned c=0; c < m_width; ++c)
-    m_track.append(9);
+    m_track.append(i-1);
   
   m_main_layout->addLayout(m_block_layout);
   m_main_layout->addWidget(m_label);
@@ -169,6 +169,7 @@ void Matrix::fillDefault() {
 }
 
 void Matrix::keyPressEvent(QKeyEvent* event) {
+  std::cout << event->key() << std::endl;
   if (event->key() == LEFT) {
     if (m_current_col == 0) {
       return;
@@ -229,6 +230,9 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
     }
   } else if (event->key() == ASCII_SPACE && m_debug) {
     printLocked();
+  } else if (event->key() == ENTER && m_debug) {
+    std::cout << "Enter\n";
+    printAvailable();
   }
 }
 

@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
     switch (c) {
     case 'd':
       debug=true;
+      std::cout << "Debug enabled\n";
       break;
     case 's':
       login=false;
