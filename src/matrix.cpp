@@ -169,7 +169,6 @@ void Matrix::fillDefault() {
 }
 
 void Matrix::keyPressEvent(QKeyEvent* event) {
-  std::cout << event->key() << std::endl;
   if (event->key() == LEFT) {
     if (m_current_col == 0) {
       return;
