@@ -286,6 +286,7 @@ void Matrix::updateScore(bool opt) {
       m_ms-=50;
       if (m_ms > 0) {
 	m_timer->start(m_ms);
+	std::cout << "----------------> LEVEL UP!\n";
       }
     }
   }
