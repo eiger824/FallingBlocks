@@ -8,7 +8,8 @@
 class PasswordForm : public QWidget {
   Q_OBJECT
 public:
-  PasswordForm(QWidget* parent=0);
+  PasswordForm(bool login,
+	       QWidget* parent=0);
   ~PasswordForm();
 signals:
   void loginCorrect();

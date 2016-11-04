@@ -18,6 +18,7 @@ static const int WIN = 16777250;
 static const int ALTGR = 16781571;
 static const int ALT = 16777251;
 static const int SIDE_ENTER = 0;
+static const int ASCII_ENTER = 32;
 
 
 enum COLOR {

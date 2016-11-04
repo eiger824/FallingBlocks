@@ -38,8 +38,7 @@ Matrix::Matrix(unsigned int i,
                           color: black; font: arial 14px;");
   updateScore(true);
   
-  unsigned int nr = i * j;
-  std::cout << "Creating matrix with " << nr << " positions\n";
+  std::cout << "Creating matrix with " << i *j << " positions\n";
 
   for (unsigned c=0; c<i; ++c) {
     QHBoxLayout *horizontal = new QHBoxLayout;
@@ -205,6 +204,15 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       }
     }
     fillDefault();
+  } else if (event->key() == ESC) {
+    if (m_timer->isActive()) {
+      m_timer->stop();
+    } else {
+      m_timer->start(333);
+    }
+  } else if (event->key() == ASCII_ENTER) {
+    std::cout << "Enter pressed\n";
+    printLocked();
   }
 }
 

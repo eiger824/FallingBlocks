@@ -25,9 +25,10 @@ private:
   void updateScore(bool opt);
 protected:
   void keyPressEvent(QKeyEvent *event);
+public slots:
+  void startTimer();
 private slots:
   void timerOut();
-  void startTimer();
 private:
   unsigned int m_width;
   unsigned int m_height;

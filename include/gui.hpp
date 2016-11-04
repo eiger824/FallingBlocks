@@ -11,7 +11,7 @@
 class Gui : public QWidget {
   Q_OBJECT
 public:
-  Gui(QWidget* parent=0);
+  Gui(bool login, QWidget* parent=0);
   ~Gui();
 private slots:
   void changeIndex();

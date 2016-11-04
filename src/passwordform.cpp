@@ -2,7 +2,7 @@
 #include "keyvalues.hpp"
 #include "passwordform.hpp"
 
-PasswordForm::PasswordForm(QWidget* parent): QWidget(parent) {
+PasswordForm::PasswordForm(bool login, QWidget* parent): QWidget(parent) {
   QVBoxLayout *main_layout = new QVBoxLayout;
   main_layout->setAlignment(Qt::AlignCenter);
   m_instructions = new QLabel("Type your password below:");
@@ -12,6 +12,8 @@ PasswordForm::PasswordForm(QWidget* parent): QWidget(parent) {
   m_edit->setStyleSheet("background-color: white; font: arial 14px; color: black;");
   m_edit->setFixedSize(204,30);
   m_edit->setEchoMode(QLineEdit::Password);
+  if (!login)
+    m_edit->setText(PASSPHRASE);
   main_layout->addWidget(m_instructions);
   main_layout->addWidget(m_edit);
   connect(m_edit, SIGNAL(returnPressed()), this, SLOT(checkLogin()));
