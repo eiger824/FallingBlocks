@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   unsigned columns = 10;
   unsigned ms = 333;
   unsigned rows = 10;
-  while ((c = getopt(argc,argv,"hsc:r:t:")) != -1) {
+  while ((c = getopt(argc,argv,"dhsc:r:t:")) != -1) {
     switch (c) {
     case 'd':
       debug=true;

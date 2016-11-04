@@ -1,4 +1,5 @@
 #include <iostream>
+#include <QMessageBox>
 #include "matrix.hpp"
 
 QList<COLOR> m_colors(QList<COLOR>()
@@ -77,11 +78,7 @@ void Matrix::timerOut() {
     if (m_cnt != m_height) {
       Position *next =
 	qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_cnt)->layout())->itemAt(m_current_col)->widget());
-      std::cout << "-----> Current [" << position->getXY().first
-		<< "," << position->getXY().second << "], Color: " <<position->getColor() <<"\n";
-      std::cout << "-----> Next    [" << next->getXY().first
-		<< "," << next->getXY().second << "], COlor: " <<next->getColor() << "\n";
-      if (/*position->getColor()*/m_current_color ==
+      if (m_current_color ==
 	  next->getColor()) {
 	//paint it, dont lock it
 	//position->setColor(m_current_color);
@@ -95,13 +92,18 @@ void Matrix::timerOut() {
 	} while (m_current_color == WHITE);
       } else {
 	//lock position
-	std::cout << "LOCKING POSITION\n";
+	std::cout << "Locking position\n";
 	position->lock(m_cnt-1, m_current_col);
 	position->setColor(m_current_color);
 	m_locked_pos << qMakePair(m_cnt-1, m_current_col);
 	//printLocked();
 	unsigned int nr = m_track.at(m_current_col);
 	if (nr == 0) {
+	  std::cout << "Reached limit (you lost ;-)\n";
+	  QMessageBox::information(this, "Game over", "Obtained score: "
+				   + QString::number(m_score));
+	  m_score = 0;
+	  updateScore(false);
 	  m_timer->stop();
 	} else {
 	  m_track.replace(m_current_col, --nr);
@@ -124,6 +126,11 @@ void Matrix::timerOut() {
       //printLocked();
       unsigned int nr = m_track.at(m_current_col);
       if (nr == 0) {
+	std::cout << "Reached limit (you lost ;-)\n";
+	QMessageBox::information(this, "Game over", "Obtained score: "
+				 + QString::number(m_score));
+	m_score = 0;
+	updateScore(false);
 	m_timer->stop();
       } else {
 	m_track.replace(m_current_col, --nr);
@@ -260,6 +267,10 @@ bool Matrix::isPosLocked(unsigned int i, unsigned int j) {
 void Matrix::updateScore(bool opt) {
   m_label->setText(m_info + QString::number(m_score));
   ++m_score;
+  if (m_score % 10 == 0) {
+    m_ms-=50;
+    m_timer->start(m_ms);
+  }
 }
 
 void Matrix::startTimer() {
