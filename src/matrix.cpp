@@ -67,6 +67,7 @@ void Matrix::timerOut() {
   fillDefault();
   Position *position = 
     qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_cnt % m_height)->layout())->itemAt(m_current_col)->widget());
+  position->setColor(m_current_color);
   ++m_cnt;
   //std::cout << "Cnt: " << m_cnt << std::endl;
   if (m_cnt == m_track.at(m_current_col) + 1) {
