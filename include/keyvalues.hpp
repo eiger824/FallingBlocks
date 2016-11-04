@@ -22,14 +22,14 @@ static const int ASCII_ENTER = 32;
 
 
 enum COLOR {
-  RED,
-  GREEN,
-  BLUE,
-  YELLOW,
-  PINK,
-  BLACK,
-  ORANGE,
-  WHITE
+  RED, //0
+  GREEN, //1
+  BLUE, //2
+  YELLOW, //3
+  PINK, //4
+  BLACK, //5
+  ORANGE, //6
+  WHITE //7
 };
 
 static const QString& PASSPHRASE = "FallingBlocks2016";

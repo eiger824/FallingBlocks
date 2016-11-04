@@ -77,7 +77,7 @@ void Matrix::timerOut() {
 		<< "," << position->getXY().second << "], Color: " <<position->getColor() <<"\n";
       std::cout << "-----> Next    [" << next->getXY().first
 		<< "," << next->getXY().second << "], COlor: " <<next->getColor() << "\n";
-      if (position->getColor() ==
+      if (/*position->getColor()*/m_current_color ==
 	  next->getColor()) {
 	//paint it, dont lock it
 	//position->setColor(m_current_color);
