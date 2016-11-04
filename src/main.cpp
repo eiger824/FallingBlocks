@@ -13,6 +13,7 @@ int help(int code) {
   std::cout << "-r <n>\tSet row count to n\n";
   std::cout << "-s\tSkip login page\n";
   std::cout << "-t <ms>\tSet falling block refresh rate (in ms.)\n";
+  std::cout << "-u\tUpdate timer every 10 points\n";
   if (code == 0) {
     return 0;
   } else {
@@ -24,11 +25,12 @@ int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
   bool login=true;
   bool debug=false;
+  bool update=false;
   int c;
   unsigned columns = 10;
   unsigned ms = 333;
   unsigned rows = 10;
-  while ((c = getopt(argc,argv,"dhsc:r:t:")) != -1) {
+  while ((c = getopt(argc,argv,"dhsuc:r:t:")) != -1) {
     switch (c) {
     case 'd':
       debug=true;
@@ -48,6 +50,9 @@ int main(int argc, char* argv[]) {
       ms = std::atoi(optarg);
       std::cout << "Timer: " << ms << std::endl;
       break;
+    case 'u':
+      update=true;
+      break;
     default:
       std::cerr << "Wrong argument " << c << "\n";
       return help(1);
@@ -55,6 +60,7 @@ int main(int argc, char* argv[]) {
   }
   Gui gui(debug,
 	  login,
+	  update,
 	  columns,
 	  rows,
 	  ms);

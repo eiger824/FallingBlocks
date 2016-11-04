@@ -13,6 +13,7 @@ class Gui : public QWidget {
 public:
   Gui(bool debug,
       bool login,
+      bool update,
       unsigned columns,
       unsigned rows,
       unsigned ms,

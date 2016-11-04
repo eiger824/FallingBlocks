@@ -3,6 +3,7 @@
 
 Gui::Gui(bool debug,
 	 bool login,
+	 bool update,
 	 unsigned columns,
 	 unsigned rows,
 	 unsigned ms,
@@ -11,7 +12,7 @@ Gui::Gui(bool debug,
   m_main_layout = new QVBoxLayout;
   m_main_layout->setAlignment(Qt::AlignCenter);
 
-  m_matrix = new Matrix(debug,rows,columns,ms);
+  m_matrix = new Matrix(debug,update,rows,columns,ms);
   m_password_form = new PasswordForm(login);
 
   connect(m_password_form, SIGNAL(loginCorrect()), this, SLOT(changeIndex()));

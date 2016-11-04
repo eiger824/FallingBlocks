@@ -13,6 +13,7 @@ class Matrix : public QWidget {
   Q_OBJECT
 public:
   Matrix(bool debug,
+	 bool update,
 	 unsigned int i,
 	 unsigned int j,
 	 unsigned ms,
@@ -47,6 +48,7 @@ private:
   unsigned m_score;
   unsigned m_ms;
   bool m_debug;
+  bool m_update;
 };
 
 #endif /*MATRIX_HPP_*/

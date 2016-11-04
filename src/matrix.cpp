@@ -14,6 +14,7 @@ QList<COLOR> m_colors(QList<COLOR>()
 
 
 Matrix::Matrix(bool debug,
+	       bool update,
 	       unsigned int i,
 	       unsigned int j,
 	       unsigned int ms,
@@ -23,6 +24,7 @@ Matrix::Matrix(bool debug,
 				 m_cnt(0),
 				 m_ms(ms),
 				 m_debug(debug),
+				 m_update(update),
 				 m_current_col(rand() % m_width),
 				 m_score(0),
 				 m_current_color(YELLOW) {
@@ -267,9 +269,13 @@ bool Matrix::isPosLocked(unsigned int i, unsigned int j) {
 void Matrix::updateScore(bool opt) {
   m_label->setText(m_info + QString::number(m_score));
   ++m_score;
-  if (m_score % 10 == 0) {
-    m_ms-=50;
-    m_timer->start(m_ms);
+  if (m_update) {
+    if (m_score % 10 == 0) {
+      m_ms-=50;
+      if (m_ms > 0) {
+	m_timer->start(m_ms);
+      }
+    }
   }
 }
 
