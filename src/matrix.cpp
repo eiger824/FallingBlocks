@@ -12,13 +12,16 @@ QList<COLOR> m_colors(QList<COLOR>()
 		      << WHITE);
 
 
-Matrix::Matrix(unsigned int i,
+Matrix::Matrix(bool debug,
+	       unsigned int i,
 	       unsigned int j,
+	       unsigned int ms,
 	       QWidget* parent): QWidget(parent),
 				 m_width(i),
 				 m_height(j),
 				 m_cnt(0),
-				 m_hz_pos(0),
+				 m_ms(ms),
+				 m_debug(debug),
 				 m_current_col(rand() % m_width),
 				 m_score(0),
 				 m_current_color(YELLOW) {
@@ -155,6 +158,7 @@ void Matrix::fillDefault() {
 }
 
 void Matrix::keyPressEvent(QKeyEvent* event) {
+  if (!m_timer->isActive()) return;
   if (event->key() == LEFT) {
     if (m_current_col == 0) {
       return;
@@ -205,14 +209,13 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       }
     }
     fillDefault();
-  } else if (event->key() == ESC) {
+  } else if (event->key() == ESC && m_debug) {
     if (m_timer->isActive()) {
       m_timer->stop();
     } else {
-      m_timer->start(333);
+      m_timer->start(m_ms);
     }
-  } else if (event->key() == ASCII_ENTER) {
-    std::cout << "Enter pressed\n";
+  } else if (event->key() == ASCII_ENTER && m_debug) {
     printLocked();
   }
 }
@@ -260,5 +263,6 @@ void Matrix::updateScore(bool opt) {
 }
 
 void Matrix::startTimer() {
-  m_timer->start(333);
+  std::cout << "Starting timer: " << m_ms << std::endl;
+  m_timer->start(m_ms);
 }

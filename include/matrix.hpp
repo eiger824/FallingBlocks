@@ -12,8 +12,10 @@
 class Matrix : public QWidget {
   Q_OBJECT
 public:
-  Matrix(unsigned int i,
+  Matrix(bool debug,
+	 unsigned int i,
 	 unsigned int j,
+	 unsigned ms,
 	 QWidget* parent=0);
   ~Matrix();
 private:
@@ -36,7 +38,6 @@ private:
   QVBoxLayout *m_block_layout;
   QTimer *m_timer;
   unsigned m_cnt;
-  unsigned m_hz_pos;
   unsigned int m_current_col;
   QList<unsigned int>m_track;
   COLOR m_current_color;
@@ -44,6 +45,8 @@ private:
   QLabel *m_label;
   QString m_info;
   unsigned m_score;
+  unsigned m_ms;
+  bool m_debug;
 };
 
 #endif /*MATRIX_HPP_*/
