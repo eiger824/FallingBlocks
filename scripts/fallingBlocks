@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -o errexit
+
+DIR=`dirname $(locate fblocks | head -1)`
+
+cd $DIR
+
+./fblocks
+
