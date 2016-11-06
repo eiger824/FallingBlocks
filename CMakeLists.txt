@@ -21,6 +21,7 @@ set(HEADERS
   include/keyvalues.hpp
   include/passwordform.hpp
   include/gui.hpp
+  include/logger.hpp
   )
 
 set(SOURCES
@@ -28,6 +29,7 @@ set(SOURCES
   src/matrix.cpp
   src/passwordform.cpp
   src/gui.cpp
+  src/logger.cpp
   )
 
 qt4_wrap_cpp(HEADERS_MOC ${HEADERS})

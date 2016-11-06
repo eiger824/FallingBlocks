@@ -32,6 +32,12 @@ enum COLOR {
   WHITE //7
 };
 
+enum LEVEL {
+  HIGH,
+  MEDIUM,
+  LOW
+};
+
 static const QString& PASSPHRASE = "FallingBlocks2016";
 
 #endif /*KEYVALUES_HPP_*/
