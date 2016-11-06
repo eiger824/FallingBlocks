@@ -1,4 +1,6 @@
 #include <iostream>
+#include <QTime>
+#include <QDate>
 #include "logger.hpp"
 
 Logger::Logger(bool enable,
@@ -8,15 +10,21 @@ Logger::Logger(bool enable,
 Logger::~Logger() {}
 
 void Logger::info(const QString& msg) {
-  std::cout << msg.toStdString() << std::endl;
+  std::cout << QDate::currentDate().toString().toStdString() << ","
+	    << QTime::currentTime().toString().toStdString() << ": "
+	    << msg.toStdString() << std::endl;
 }
 
 void Logger::info(const int nr) {
-  std::cout << nr << std::endl;
+  std::cout << QDate::currentDate().toString().toStdString() << ","
+	    << QTime::currentTime().toString().toStdString() << ": "
+	    << nr << std::endl;
 }
 
 void Logger::info(const QString& msg, const int nr) {
-  std::cout << msg.toStdString() << nr << std::endl;
+  std::cout << QDate::currentDate().toString().toStdString() << ","
+	    << QTime::currentTime().toString().toStdString() << ": "
+	    << msg.toStdString() << nr << std::endl;
 }
 
 void Logger::setEnabled(bool enabled) {

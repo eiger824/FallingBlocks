@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 
 #include "position.hpp"
+#include "logger.hpp"
 
 class Matrix : public QWidget {
   Q_OBJECT
@@ -49,6 +50,7 @@ private:
   unsigned m_ms;
   bool m_debug;
   bool m_update;
+  Logger *m_logger;
 };
 
 #endif /*MATRIX_HPP_*/
