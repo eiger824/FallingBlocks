@@ -14,6 +14,7 @@ QList<COLOR> m_colors(QList<COLOR>()
 
 
 Matrix::Matrix(bool debug,
+	       LEVEL level,
 	       bool update,
 	       unsigned int i,
 	       unsigned int j,
@@ -24,6 +25,7 @@ Matrix::Matrix(bool debug,
 				 m_cnt(0),
 				 m_ms(ms),
 				 m_debug(debug),
+				 m_level(level),
 				 m_update(update),
 				 m_current_col(rand() % m_width),
 				 m_score(0),
@@ -33,7 +35,7 @@ Matrix::Matrix(bool debug,
   setStyleSheet("background-color: grey;");
 
   //logger init
-  m_logger = new Logger(debug,HIGH);
+  m_logger = new Logger(debug,level);
   
   m_main_layout = new QVBoxLayout;
   m_main_layout->setAlignment(Qt::AlignCenter);
@@ -47,7 +49,7 @@ Matrix::Matrix(bool debug,
                           color: black; font: arial 14px;");
   updateScore(true);
   
-  m_logger->info("Creating matrix with nr. positions: ", i*j);
+  m_logger->info("Creating matrix with nr. positions: ", i*j, HIGH);
 
   for (unsigned c=0; c<i; ++c) {
     QHBoxLayout *horizontal = new QHBoxLayout;
@@ -88,7 +90,7 @@ void Matrix::timerOut() {
 	updateScore(true);
 	//and unlock position
 	int index = m_locked_pos.indexOf(qMakePair(m_cnt, m_current_col));
-	m_logger->info("Found at index: ",index);
+	m_logger->info("Found at index: ",index, HIGH);
 	m_locked_pos.removeAt(index);
 	next->unLock();
 	unsigned int nr = m_track.at(m_current_col);
@@ -101,13 +103,13 @@ void Matrix::timerOut() {
 	} while (m_current_color == WHITE);
       } else {
 	//lock position
-        m_logger->info("Locking position\n");
+        m_logger->info("Locking position\n", MEDIUM);
 	position->lock(m_cnt-1, m_current_col);
 	position->setColor(m_current_color);
 	m_locked_pos << qMakePair(m_cnt-1, m_current_col);
 	unsigned int nr = m_track.at(m_current_col);
 	if (nr == 0) {
-	  m_logger->info("Reached limit (you lost ;-)\n");
+	  m_logger->info("Reached limit (you lost ;-)\n", HIGH);
 	  QMessageBox::information(this, "Game over", "Obtained score: "
 				   + QString::number(m_score));
 	  m_score = 0;
@@ -133,7 +135,7 @@ void Matrix::timerOut() {
       //printLocked();
       unsigned int nr = m_track.at(m_current_col);
       if (nr == 0) {
-	m_logger->info("Reached limit (you lost ;-)");
+	m_logger->info("Reached limit (you lost ;-)", HIGH);
 	QMessageBox::information(this, "Game over", "Obtained score: "
 				 + QString::number(m_score));
 	m_score = 0;
@@ -179,7 +181,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       if (canMove(false)) {
 	--m_current_col;
       } else  {
-	m_logger->info("Not possible to move. Returning...");
+	m_logger->info("Not possible to move. Returning...", HIGH);
 	return;
       }
       Position *position;
@@ -187,7 +189,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
 	position =
 	  qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_current_col % m_height)->layout())->itemAt(i)->widget());
 	if (position->isLocked()) {
-	  m_logger->info("Position locked. Omitting...");
+	  m_logger->info("Position locked. Omitting...", HIGH);
 	}  else {
 	  if (i == m_current_col)
 	    position->setColor(m_current_color);
@@ -204,7 +206,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       if (canMove(true)) {
 	++m_current_col;
       } else {
-	m_logger->info("Not possible to move. Returning...");
+	m_logger->info("Not possible to move. Returning...", HIGH);
 	return;
       }
       Position *position;
@@ -212,7 +214,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
 	position =
 	  qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_current_col % m_width)->layout())->itemAt(i)->widget());
 	if (position->isLocked()) {
-	  m_logger->info("Position locked. Omitting...");
+	  m_logger->info("Position locked. Omitting...", HIGH);
 	} else {
 	  if (i == m_current_col)
 	    position->setColor(m_current_color);
@@ -224,10 +226,10 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
     fillDefault();
   } else if (event->key() == ESC && m_debug) {
     if (m_timer->isActive()) {
-      m_logger->info("Stopping...");
+      m_logger->info("Stopping...", MEDIUM);
       m_timer->stop();
     } else {
-      m_logger->info("Resuming...");
+      m_logger->info("Resuming...", MEDIUM);
       m_timer->start(m_ms);
     }
   } else if (event->key() == ASCII_SPACE && m_debug) {
@@ -239,7 +241,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
 
 void Matrix::printAvailable() {
   for (unsigned i=0; i<m_width; ++i) {
-    m_logger->info("Column: " + QString::number(i) + ": " + QString::number(m_track.at(i)));
+    m_logger->info("Column: " + QString::number(i) + ": " + QString::number(m_track.at(i)), LOW);
   }
 }
 
@@ -261,12 +263,12 @@ bool Matrix::canMove(bool direction) {
 }
 
 void Matrix::printLocked() {
-  m_logger->info("@@@@@@ Locked Positions @@@@@@");
+  m_logger->info("@@@@@@ Locked Positions @@@@@@", LOW);
   for (unsigned i=0; i<m_locked_pos.size(); ++i) {
     m_logger->info("[" + QString::number(m_locked_pos.at(i).first)
-		   + "," + QString::number(m_locked_pos.at(i).second) + "]");
+		   + "," + QString::number(m_locked_pos.at(i).second) + "]", LOW);
   }
-  m_logger->info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  m_logger->info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", LOW);
 }
 
 bool Matrix::isPosLocked(unsigned int i, unsigned int j) {
@@ -287,13 +289,13 @@ void Matrix::updateScore(bool opt) {
       m_ms-=50;
       if (m_ms > 0) {
 	m_timer->start(m_ms);
-	m_logger->info("----------------> LEVEL UP!");
+	m_logger->info("----------------> LEVEL UP!", LOW);
       }
     }
   }
 }
 
 void Matrix::startTimer() {
-  m_logger->info("Starting timer: ", m_ms);
+  m_logger->info("Starting timer: ", m_ms, MEDIUM);
   m_timer->start(m_ms);
 }

@@ -2,6 +2,7 @@
 #include "gui.hpp"
 
 Gui::Gui(bool debug,
+	 LEVEL level,
 	 bool login,
 	 bool update,
 	 unsigned columns,
@@ -18,7 +19,7 @@ Gui::Gui(bool debug,
     std::cout << "Login form disabled\n";
   }
   
-  m_matrix = new Matrix(debug,update,rows,columns,ms);
+  m_matrix = new Matrix(debug,level,update,rows,columns,ms);
   m_password_form = new PasswordForm(login);
 
   connect(m_password_form, SIGNAL(loginCorrect()), this, SLOT(changeIndex()));

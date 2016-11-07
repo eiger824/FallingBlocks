@@ -1,19 +1,21 @@
 #include <QApplication>
 #include <getopt.h>
 #include <iostream>
+#include "definitions.hpp"
 #include "gui.hpp"
 
 int help(int code) {
   std::cout << "Falling Blocks - The Game!\n";
   std::cout << "[USAGE]: fblocks [OPTIONS]\n";
   std::cout << "OPTIONS:\n";
-  std::cout << "-c <n>\tSet column count to n\n";
-  std::cout << "-d\tEnable debug controls\n";
-  std::cout << "-h\tPrint this help and exit\n";
-  std::cout << "-r <n>\tSet row count to n\n";
-  std::cout << "-s\tSkip login page\n";
-  std::cout << "-t <ms>\tSet falling block refresh rate (in ms.)\n";
-  std::cout << "-u\tUpdate timer every 10 points\n";
+  std::cout << "-c <n>\t\tSet column count to n\n";
+  std::cout << "-d <level>\tEnable debug controls\n";
+  std::cout << "   (level: HIGH,MEDIUM,LOW)\n";
+  std::cout << "-h\t\tPrint this help and exit\n";
+  std::cout << "-r <n>\t\tSet row count to n\n";
+  std::cout << "-s\t\tSkip login page\n";
+  std::cout << "-t <ms>\t\tSet falling block refresh rate (in ms.)\n";
+  std::cout << "-u\t\tUpdate timer every 10 points\n";
   if (code == 0) {
     return 0;
   } else {
@@ -27,14 +29,24 @@ int main(int argc, char* argv[]) {
   bool debug=false;
   bool update=false;
   int c;
+  LEVEL level = HIGH;
   unsigned columns = 10;
   unsigned ms = 333;
   unsigned rows = 10;
-  while ((c = getopt(argc,argv,"dhsuc:r:t:")) != -1) {
+  while ((c = getopt(argc,argv,"d:hsuc:r:t:")) != -1) {
     switch (c) {
     case 'd':
       debug=true;
-      std::cout << "Debug enabled\n";
+      if (strcmp(optarg,"HIGH") &&
+          strcmp(optarg,"MEDIUM") &&
+          strcmp(optarg,"LOW")) {
+          std::cerr << "Error, invalid level: " << optarg << ".\n";
+	  return help(1);
+      }
+      std::cout << "Debug enabled (level: " << optarg << ")\n";
+      if (!strcmp(optarg,"HIGH")) level = HIGH;
+      else if (!strcmp(optarg,"MEDIUM")) level = MEDIUM;
+      else if (!strcmp(optarg,"LOW")) level = LOW;
       break;
     case 's':
       login=false;
@@ -60,6 +72,7 @@ int main(int argc, char* argv[]) {
     }
   }
   Gui gui(debug,
+	  level,
 	  login,
 	  update,
 	  columns,

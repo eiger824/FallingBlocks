@@ -7,11 +7,13 @@
 
 #include "matrix.hpp"
 #include "passwordform.hpp"
+#include "definitions.hpp"
 
 class Gui : public QWidget {
   Q_OBJECT
 public:
   Gui(bool debug,
+      LEVEL level,
       bool login,
       bool update,
       unsigned columns,

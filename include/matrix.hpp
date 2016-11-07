@@ -9,11 +9,13 @@
 
 #include "position.hpp"
 #include "logger.hpp"
+#include "definitions.hpp"
 
 class Matrix : public QWidget {
   Q_OBJECT
 public:
   Matrix(bool debug,
+	 LEVEL level,
 	 bool update,
 	 unsigned int i,
 	 unsigned int j,
@@ -51,6 +53,7 @@ private:
   bool m_debug;
   bool m_update;
   Logger *m_logger;
+  LEVEL m_level;
 };
 
 #endif /*MATRIX_HPP_*/

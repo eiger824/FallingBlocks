@@ -8,9 +8,9 @@ class Logger {
 public:
   Logger(bool enable, LEVEL level=HIGH);
   ~Logger();
-  void info(const QString& msg);
-  void info(const int nr);
-  void info(const QString& msg, const int nr);
+  void info(const QString& msg, const LEVEL level);
+  void info(const int nr, const LEVEL level);
+  void info(const QString& msg, const int nr, const LEVEL level);
   bool getEnabled();
   void setEnabled(bool enabled);
   LEVEL getLevel();
