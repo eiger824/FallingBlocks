@@ -33,9 +33,9 @@ enum COLOR {
 };
 
 enum LEVEL {
-  HIGH,
+  LOW,
   MEDIUM,
-  LOW
+  HIGH
 };
 
 static const QString& PASSPHRASE = "FallingBlocks2016";

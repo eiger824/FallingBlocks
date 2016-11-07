@@ -18,7 +18,7 @@ include_directories(
 set(HEADERS
   include/position.hpp
   include/matrix.hpp
-  include/keyvalues.hpp
+  include/definitions.hpp
   include/passwordform.hpp
   include/gui.hpp
   include/logger.hpp

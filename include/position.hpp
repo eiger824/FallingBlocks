@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QPixmap>
 
-#include "keyvalues.hpp"
+#include "definitions.hpp"
 
 class Position : public QWidget {
   Q_OBJECT

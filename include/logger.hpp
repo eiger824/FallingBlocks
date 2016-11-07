@@ -2,7 +2,7 @@
 #define LOGGER_HPP_
 
 #include <QString>
-#include "keyvalues.hpp"
+#include "definitions.hpp"
 
 class Logger {
 public:

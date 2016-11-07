@@ -1,5 +1,5 @@
 #include <QVBoxLayout>
-#include "keyvalues.hpp"
+#include "definitions.hpp"
 #include "passwordform.hpp"
 
 PasswordForm::PasswordForm(bool login, QWidget* parent): QWidget(parent) {
