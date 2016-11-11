@@ -24,6 +24,7 @@ Matrix::Matrix(bool debug,
 				 m_height(j),
 				 m_cnt(0),
 				 m_ms(ms),
+				 m_ms_0(ms),
 				 m_debug(debug),
 				 m_level(level),
 				 m_update(update),
@@ -111,10 +112,11 @@ void Matrix::timerOut() {
 	if (nr == 0) {
 	  m_logger->info("Reached limit (you lost ;-)\n", HIGH);
 	  QMessageBox::information(this, "Game over", "Obtained score: "
-				   + QString::number(m_score));
-	  m_score = 0;
-	  updateScore(false);
+				   + QString::number(m_score) + ". Press OK"
+				   + "/Enter to restart!");
+	  
 	  m_timer->stop();
+	  restartGame();
 	} else {
 	  m_track.replace(m_current_col, --nr);
 	  //switch column
@@ -137,10 +139,10 @@ void Matrix::timerOut() {
       if (nr == 0) {
 	m_logger->info("Reached limit (you lost ;-)", HIGH);
 	QMessageBox::information(this, "Game over", "Obtained score: "
-				 + QString::number(m_score));
-	m_score = 0;
-	updateScore(false);
+				 + QString::number(m_score) + ". Press OK"
+				   + "/Enter to restart!");
 	m_timer->stop();
+	restartGame();
       } else {
 	m_track.replace(m_current_col, --nr);
 	//printAvailable();
@@ -296,6 +298,33 @@ void Matrix::updateScore(bool opt) {
 }
 
 void Matrix::startTimer() {
-  m_logger->info("Starting timer: ", m_ms, MEDIUM);
+  m_logger->info("Starting timer: ", m_ms_0, MEDIUM);
   m_timer->start(m_ms);
+}
+
+void Matrix::restartGame() {
+  m_logger->info("Restarting game!", LOW);
+  //clear list
+  m_locked_pos.clear();
+  //clear positions
+  for (unsigned i=0; i<m_width; ++i) {
+    for (unsigned j=0; j<m_height; ++j) {
+      Position *position =
+	qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(i)->layout())->itemAt(j)->widget());
+      position->unLock();
+    }
+  }
+  //update blocks
+  fillDefault();
+  //start timer
+  m_timer->start(m_ms_0);
+  //restart score
+  m_score = 0;
+  updateScore(false);
+  //restart counter
+  m_cnt = 0;
+  //restart m_track
+  m_track.clear();
+  for (unsigned c=0; c < m_width; ++c)
+    m_track.append(m_width-1);
 }

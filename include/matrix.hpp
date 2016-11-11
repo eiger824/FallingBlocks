@@ -29,6 +29,7 @@ private:
   void printLocked();
   bool isPosLocked(unsigned int i, unsigned int j);
   void updateScore(bool opt);
+  void restartGame();
 protected:
   void keyPressEvent(QKeyEvent *event);
 public slots:
@@ -50,6 +51,7 @@ private:
   QString m_info;
   unsigned m_score;
   unsigned m_ms;
+  unsigned m_ms_0;
   bool m_debug;
   bool m_update;
   Logger *m_logger;
