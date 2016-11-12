@@ -11,7 +11,7 @@ Position::Position(unsigned int i,
 				     m_y(j),
 				     m_color(color),
 				     m_locked(false) {
-  setFixedSize(50,50);
+  //setFixedSize(50,50);
   setContentsMargins(0,0,0,0);
   m_main_layout = new QVBoxLayout;
   QPixmap target;

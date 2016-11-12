@@ -32,7 +32,7 @@ Matrix::Matrix(bool debug,
 				 m_score(0),
 				 m_current_color(YELLOW) {
 
-  setFixedSize(500,500);
+  //setFixedSize(500,500);
   setStyleSheet("background-color: grey;");
 
   //logger init
