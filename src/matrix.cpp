@@ -20,8 +20,8 @@ Matrix::Matrix(bool debug,
 	       unsigned int j,
 	       unsigned int ms,
 	       QWidget* parent): QWidget(parent),
-				 m_width(i),
-				 m_height(j),
+				 m_width(j),
+				 m_height(i),
 				 m_cnt(0),
 				 m_ms(ms),
 				 m_ms_0(ms),
@@ -32,9 +32,7 @@ Matrix::Matrix(bool debug,
 				 m_score(0),
 				 m_current_color(YELLOW) {
 
-  //setFixedSize(500,500);
   setStyleSheet("background-color: grey;");
-
   //logger init
   m_logger = new Logger(debug,level);
   
@@ -60,9 +58,8 @@ Matrix::Matrix(bool debug,
     }
     m_block_layout->addLayout(horizontal);
   }
-
   for (unsigned c=0; c < m_width; ++c)
-    m_track.append(i-1);
+    m_track.append(m_height-1);
   
   m_main_layout->addLayout(m_block_layout);
   m_main_layout->addWidget(m_label);
@@ -162,8 +159,8 @@ void Matrix::timerOut() {
 }
 
 void Matrix::fillDefault() {
-  for (unsigned i=0; i<m_width; ++i) {
-    for (unsigned j=0; j<m_height; ++j) {
+  for (unsigned i=0; i<m_height; ++i) {
+    for (unsigned j=0; j<m_width; ++j) {
       if (!isPosLocked(i,j)) {
 	Position* position =
 	  qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(i)->layout())->itemAt(j)->widget());
@@ -214,7 +211,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       Position *position;
       for (unsigned i=0; i<m_width; ++i) {
 	position =
-	  qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_current_col % m_width)->layout())->itemAt(i)->widget());
+	  qobject_cast<Position*>(qobject_cast<QLayout*>(m_block_layout->itemAt(m_current_col % m_height)->layout())->itemAt(i)->widget());
 	if (position->isLocked()) {
 	  m_logger->info("Position locked. Omitting...", HIGH);
 	} else {
