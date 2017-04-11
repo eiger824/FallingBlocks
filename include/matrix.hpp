@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QTimer>
-#include <QKeyEvent>
+#include <QMouseEvent>
 
 #include "position.hpp"
 #include "logger.hpp"
@@ -31,7 +31,7 @@ private:
   void updateScore(bool opt);
   void restartGame();
 protected:
-  void keyPressEvent(QKeyEvent *event);
+  void mouseEvent(QMouseEvent *event);
 public slots:
   void startTimer();
 private slots:

@@ -172,8 +172,8 @@ void Matrix::fillDefault() {
   }
 }
 
-void Matrix::keyPressEvent(QKeyEvent* event) {
-  if (event->key() == LEFT) {
+void Matrix::mousesEvent(QMouseEvent* event) {
+  if (event->x() < 400) {
     if (m_current_col == 0) {
       return;
     } else {
@@ -198,7 +198,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       }
       fillDefault();
     }
-  } else if (event->key() == RIGHT) {
+  } else if (event->x() >= 400) {
     if (m_current_col == m_width -1) {
       return;
     } else {
@@ -223,7 +223,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
       }
     }
     fillDefault();
-  } else if (event->key() == ESC && m_debug) {
+  } /*else if (event->key() == ESC && m_debug) {
     if (m_timer->isActive()) {
       m_logger->info("Stopping...", MEDIUM);
       m_timer->stop();
@@ -235,7 +235,7 @@ void Matrix::keyPressEvent(QKeyEvent* event) {
     printLocked();
   } else if (event->key() == ENTER && m_debug) {
     printAvailable();
-  }
+    }*/
 }
 
 void Matrix::printAvailable() {
