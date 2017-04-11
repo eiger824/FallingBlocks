@@ -1,5 +1,0 @@
-set -o errexit
-echo "Installing in /usr/bin/..."
-sudo cp fallingBlocks /usr/bin/
-echo "Installing in /usr/bin/...[OK]"
-

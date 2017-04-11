@@ -1,5 +1,5 @@
 # FallingBlocks
-1.) mkdir build
-2.) cd build
-3.) cmake ..
-4.) make install
+
+# Branch: embedded
+
+# Purpose: adaptation of the desktop version to Yocto project 

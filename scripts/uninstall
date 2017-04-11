@@ -1,5 +1,0 @@
-set -o errexit
-echo "Uninstalling from /usr/bin/ ..."
-sudo rm /usr/bin/fallingBlocks
-echo "Uninstalling from /usr/bin/ ...[OK]"
-
