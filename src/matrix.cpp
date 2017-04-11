@@ -172,7 +172,7 @@ void Matrix::fillDefault() {
   }
 }
 
-void Matrix::mousesEvent(QMouseEvent* event) {
+void Matrix::mouseEvent(QMouseEvent* event) {
   if (event->x() < 400) {
     if (m_current_col == 0) {
       return;
