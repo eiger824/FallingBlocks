@@ -9,6 +9,8 @@ Gui::Gui(bool debug,
 	 unsigned rows,
 	 unsigned ms,
 	 QWidget* parent): QWidget(parent) {
+  setMaximumWidth(800);
+  setMaximumHeight(480);
   setStyleSheet("background-color: #c3c3c3;");
   m_main_layout = new QVBoxLayout;
   m_main_layout->setAlignment(Qt::AlignCenter);
