@@ -1,7 +1,7 @@
 #include <iostream>
 #include <QTime>
 #include <QDate>
-#include "logger.hpp"
+#include "../include/logger.hpp"
 
 Logger::Logger(bool enable,
 	       LEVEL level): m_enable(enable),

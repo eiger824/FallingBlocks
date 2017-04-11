@@ -1,6 +1,6 @@
 #include <QVBoxLayout>
-#include "definitions.hpp"
-#include "passwordform.hpp"
+#include "../include/definitions.hpp"
+#include "../include/passwordform.hpp"
 
 PasswordForm::PasswordForm(bool login, QWidget* parent): QWidget(parent) {
   QVBoxLayout *main_layout = new QVBoxLayout;

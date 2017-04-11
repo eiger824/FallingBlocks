@@ -1,5 +1,5 @@
 #include <iostream>
-#include "position.hpp"
+#include "../include/position.hpp"
 
 const QString& PREFIX = "images/";
 

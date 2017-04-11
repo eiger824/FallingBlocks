@@ -1,6 +1,6 @@
 #include <iostream>
 #include <QMessageBox>
-#include "matrix.hpp"
+#include "../include/matrix.hpp"
 
 QList<COLOR> m_colors(QList<COLOR>()
 		      << RED

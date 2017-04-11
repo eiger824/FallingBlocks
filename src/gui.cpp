@@ -1,5 +1,5 @@
 #include <iostream>
-#include "gui.hpp"
+#include "../include/gui.hpp"
 
 Gui::Gui(bool debug,
 	 LEVEL level,

@@ -1,8 +1,8 @@
 #include <QApplication>
 #include <getopt.h>
 #include <iostream>
-#include "definitions.hpp"
-#include "gui.hpp"
+#include "../include/definitions.hpp"
+#include "../include/gui.hpp"
 
 int help(int code) {
   std::cout << "Falling Blocks - The Game!\n";
