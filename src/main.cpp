@@ -25,6 +25,7 @@ int help(int code) {
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
+  qputenv("QT_IM_MODULE","qtvirtualkeyboard");
   bool login=true;
   bool debug=false;
   bool update=false;
