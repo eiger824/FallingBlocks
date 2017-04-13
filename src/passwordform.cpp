@@ -1,6 +1,9 @@
 #include <QVBoxLayout>
+#include <QPushButton>
 #include "../include/definitions.hpp"
 #include "../include/passwordform.hpp"
+
+#include <iostream>
 
 PasswordForm::PasswordForm(bool login, QWidget* parent): QWidget(parent) {
   QVBoxLayout *main_layout = new QVBoxLayout;
@@ -16,6 +19,11 @@ PasswordForm::PasswordForm(bool login, QWidget* parent): QWidget(parent) {
     m_edit->setText(PASSPHRASE);
   main_layout->addWidget(m_instructions);
   main_layout->addWidget(m_edit);
+  QPushButton *b = new QPushButton("Log in");
+  b->setFixedSize(100,50);
+  std::cout << "Created button\n";
+  connect(b, SIGNAL(pressed()), this, SLOT(checkLogin()));
+  main_layout->addWidget(b);
   connect(m_edit, SIGNAL(returnPressed()), this, SLOT(checkLogin()));
   setLayout(main_layout);
 }

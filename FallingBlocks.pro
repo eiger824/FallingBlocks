@@ -5,6 +5,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = fallingblocks 
 TEMPLATE = app
 
+target.path = /usr/bin
+#INSTALLS += fallingblocks
+
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += src/main.cpp \

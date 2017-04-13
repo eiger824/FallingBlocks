@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../include/position.hpp"
 
-const QString& PREFIX = "images/";
+const QString& PREFIX = "/usr/bin/";
 
 Position::Position(unsigned int i,
 		   unsigned int j,
@@ -46,33 +46,34 @@ void Position::setColor(COLOR color) {
   QPixmap target;
   switch (color) {
   case RED:
-    path="red.png";
+    path="images/red.png";
     break;
   case GREEN:
-    path="green.png";
+    path="images/green.png";
     break;
   case BLUE:
-    path="blue.png";
+    path="images/blue.png";
     break;
   case YELLOW:
-    path="yellow.png";
+    path="images/yellow.png";
     break;
   case PINK:
-    path="pink.png";
+    path="images/pink.png";
     break;
   case BLACK:
-    path="black.png";
+    path="images/black.png";
     break;
   case ORANGE:
-    path="orange.png";
+    path="images/orange.png";
     break;
   case WHITE:
-    path="white.png";
+    path="images/white.png";
     break;
   default:
-    path="red.png";
+    path="images/red.png";
     break;
   }
+
   if (target.load(PREFIX+path)) {
     m_label->setPixmap(target);
   } else {

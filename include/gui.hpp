@@ -25,7 +25,7 @@ private slots:
   void changeIndex();
 private:
   Matrix *m_matrix;
-  PasswordForm *m_password_form;
+  //PasswordForm *m_password_form;
   QStackedWidget *m_main_stack;
   QVBoxLayout *m_main_layout;
 };

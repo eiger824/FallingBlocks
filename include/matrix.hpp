@@ -31,7 +31,7 @@ private:
   void updateScore(bool opt);
   void restartGame();
 protected:
-  void mouseEvent(QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event);
 public slots:
   void startTimer();
 private slots:

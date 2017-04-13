@@ -23,19 +23,22 @@ Gui::Gui(bool debug,
     }
 
     m_matrix = new Matrix(debug,level,update,rows,columns,ms);
-    m_password_form = new PasswordForm(login);
+    //m_password_form = new PasswordForm(login);
 
-    connect(m_password_form, SIGNAL(loginCorrect()), this, SLOT(changeIndex()));
-    connect(m_password_form, SIGNAL(loginCorrect()), m_matrix, SLOT(startTimer()));
+    //connect(m_password_form, SIGNAL(loginCorrect()), this, SLOT(changeIndex()));
+    //connect(m_password_form, SIGNAL(loginCorrect()), m_matrix, SLOT(startTimer()));
 
     m_main_stack = new QStackedWidget;
 
-    m_main_stack->addWidget(m_password_form);
+    //m_main_stack->addWidget(m_password_form);
     m_main_stack->addWidget(m_matrix);
     m_main_layout->addWidget(m_main_stack);
 
     setLayout(m_main_layout);
     show();
+
+    //start action!
+    m_matrix->startTimer();
 }
 
 Gui::~Gui() {
