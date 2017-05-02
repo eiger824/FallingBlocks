@@ -32,6 +32,7 @@ private:
   void restartGame();
 protected:
   void mousePressEvent(QMouseEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
 public slots:
   void startTimer();
 private slots:

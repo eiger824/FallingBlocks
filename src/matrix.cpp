@@ -239,6 +239,11 @@ void Matrix::mousePressEvent(QMouseEvent* event) {
     }*/
 }
 
+void Matrix::mouseMoveEvent(QMouseEvent *event) {
+    m_logger->info("(x:" + QString::number(event->x()) +
+                   ",y:" + QString::number(event->y()) + ")", HIGH);
+}
+
 void Matrix::printAvailable() {
   for (unsigned i=0; i<m_width; ++i) {
     m_logger->info("Column: " + QString::number(i) + ": " + QString::number(m_track.at(i)), LOW);
