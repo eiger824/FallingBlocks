@@ -1,7 +1,9 @@
 #include <iostream>
 #include "../include/position.hpp"
 
-const QString& PREFIX = "./";
+const QString& COMMONPREFIX = "/usr/bin/apps";
+const QString& PREFIX = "fallingblocks";
+const QString& SEP = "/";
 
 Position::Position(unsigned int i,
 		   unsigned int j,
@@ -74,7 +76,7 @@ void Position::setColor(COLOR color) {
     break;
   }
 
-  if (target.load(PREFIX+path)) {
+  if (target.load(COMMONPREFIX + SEP + PREFIX + SEP +path)) {
     m_label->setPixmap(target);
   } else {
     std::cerr << "Failed\n";
