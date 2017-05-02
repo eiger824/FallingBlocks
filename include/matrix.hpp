@@ -37,6 +37,8 @@ public slots:
   void startTimer();
 private slots:
   void timerOut();
+signals:
+  void quitApp();
 private:
   unsigned int m_width;
   unsigned int m_height;

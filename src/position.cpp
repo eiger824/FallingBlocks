@@ -79,7 +79,7 @@ void Position::setColor(COLOR color) {
   if (target.load(COMMONPREFIX + SEP + PREFIX + SEP +path)) {
     m_label->setPixmap(target);
   } else {
-    std::cerr << "Failed\n";
+    //std::cerr << "Failed\n";
   }
   m_color = color;
 }

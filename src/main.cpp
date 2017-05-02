@@ -79,5 +79,6 @@ int main(int argc, char* argv[]) {
 	  columns,
 	  rows,
 	  ms);
+
   return app.exec();
 }

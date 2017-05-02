@@ -1,5 +1,6 @@
 #include <iostream>
 #include <QMessageBox>
+#include <QApplication>
 #include "../include/matrix.hpp"
 
 QList<COLOR> m_colors(QList<COLOR>()
@@ -174,6 +175,16 @@ void Matrix::fillDefault() {
 
 void Matrix::mousePressEvent(QMouseEvent* event) {
     m_logger->info("Mouse event", HIGH);
+    m_logger->info("Key press event", HIGH);
+    QMessageBox msgBox;
+    msgBox.setText("Exit");
+    msgBox.setInformativeText("Do you want to quit the application?");
+    msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Apply);
+    msgBox.setDefaultButton(QMessageBox::Apply);
+    int ret;
+    switch (ret = msgBox.exec()) {
+    case QMessageBox::Apply: QApplication::quit();
+    }
   if (event->x() < 400) {
     if (m_current_col == 0) {
       return;

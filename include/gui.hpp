@@ -21,8 +21,11 @@ public:
       unsigned ms,
       QWidget* parent=0);
   ~Gui();
+signals:
+  void terminateApp();
 private slots:
   void changeIndex();
+  void quitAppSlot();
 private:
   Matrix *m_matrix;
   //PasswordForm *m_password_form;

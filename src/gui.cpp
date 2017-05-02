@@ -23,6 +23,7 @@ Gui::Gui(bool debug,
     }
 
     m_matrix = new Matrix(debug,level,update,rows,columns,ms);
+    connect(m_matrix, SIGNAL(quitApp()), this, SLOT(quitAppSlot()));
     //m_password_form = new PasswordForm(login);
 
     //connect(m_password_form, SIGNAL(loginCorrect()), this, SLOT(changeIndex()));
@@ -46,4 +47,9 @@ Gui::~Gui() {
 
 void Gui::changeIndex() {
     m_main_stack->setCurrentIndex(1);
+}
+
+void Gui::quitAppSlot()
+{
+    emit terminateApp();
 }
