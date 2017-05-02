@@ -30,9 +30,10 @@ private:
   bool isPosLocked(unsigned int i, unsigned int j);
   void updateScore(bool opt);
   void restartGame();
+  bool computeSwiped();
 protected:
   void mousePressEvent(QMouseEvent *event);
-  void mouseMoveEvent(QMouseEvent *event);
+  void mouseReleaseEvent(QMouseEvent* event);
 public slots:
   void startTimer();
 private slots:
@@ -59,6 +60,9 @@ private:
   bool m_update;
   Logger *m_logger;
   LEVEL m_level;
+  QPair<int,int> m_init;
+  QPair<int,int> m_final;
+  bool m_swiping;
 };
 
 #endif /*MATRIX_HPP_*/
