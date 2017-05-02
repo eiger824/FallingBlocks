@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../include/position.hpp"
 
-const QString& PREFIX = "/usr/bin/";
+const QString& PREFIX = "./";
 
 Position::Position(unsigned int i,
 		   unsigned int j,
