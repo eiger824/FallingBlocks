@@ -31,7 +31,8 @@ Matrix::Matrix(bool debug,
 				 m_update(update),
 				 m_current_col(rand() % m_width),
 				 m_score(0),
-				 m_current_color(YELLOW) {
+                 m_current_color(YELLOW),
+                 m_swiping(false){
 
   setStyleSheet("background-color: grey;");
   //logger init
@@ -173,18 +174,43 @@ void Matrix::fillDefault() {
   }
 }
 
-void Matrix::mousePressEvent(QMouseEvent* event) {
-    m_logger->info("Mouse event", HIGH);
-    m_logger->info("Key press event", HIGH);
-    QMessageBox msgBox;
-    msgBox.setText("Exit");
-    msgBox.setInformativeText("Do you want to quit the application?");
-    msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Apply);
-    msgBox.setDefaultButton(QMessageBox::Apply);
-    int ret;
-    switch (ret = msgBox.exec()) {
-    case QMessageBox::Apply: QApplication::quit();
+bool Matrix::computeSwiped() {
+    std::cout << "init.first = " << m_init.first << ", (final.first - init.first) = " << m_final.first - m_init.first << std::endl;
+    if (m_init.first < 50 &&
+            (m_final.first - m_init.first) > 200) {
+        return true;
+    } else return false;
+}
+
+void Matrix::mouseReleaseEvent(QMouseEvent *event) {
+    m_swiping = false;
+    m_final.first = event->x();
+    m_final.second = event->y();
+    if (computeSwiped()) {
+        QMessageBox msgBox;
+        msgBox.setText("Exit");
+        msgBox.setInformativeText("Do you want to quit the application?");
+        msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Apply);
+        msgBox.setDefaultButton(QMessageBox::Apply);
+        int ret;
+        switch (ret = msgBox.exec()) {
+        case QMessageBox::Apply: QApplication::quit();
+        }
     }
+    m_final.first = 0;
+    m_final.second = 0;
+    m_init.first = 0;
+    m_init.second = 0;
+}
+
+void Matrix::mousePressEvent(QMouseEvent* event) {
+    m_swiping = true;
+    //update first pair
+    m_init.first = event->x();
+    m_init.second = event->y();
+
+    m_logger->info("Mouse event", HIGH);
+
   if (event->x() < 400) {
     if (m_current_col == 0) {
       return;
