@@ -177,7 +177,7 @@ void Matrix::fillDefault() {
 bool Matrix::computeSwiped() {
     std::cout << "init.first = " << m_init.first << ", (final.first - init.first) = " << m_final.first - m_init.first << std::endl;
     if (m_init.first < 50 &&
-            (m_final.first - m_init.first) > 200) {
+            (m_final.first - m_init.first) > 150) {
         return true;
     } else return false;
 }
