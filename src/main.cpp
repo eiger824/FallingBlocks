@@ -13,7 +13,6 @@ int help(int code) {
   std::cout << "   (level: HIGH,MEDIUM,LOW)\n";
   std::cout << "-h\t\tPrint this help and exit\n";
   std::cout << "-r <n>\t\tSet row count to n\n";
-  std::cout << "-s\t\tSkip login page\n";
   std::cout << "-t <ms>\t\tSet falling block refresh rate (in ms.)\n";
   std::cout << "-u\t\tUpdate timer every 10 points\n";
   if (code == 0) {
@@ -26,7 +25,6 @@ int help(int code) {
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
   qputenv("QT_IM_MODULE","qtvirtualkeyboard");
-  bool login=true;
   bool debug=false;
   bool update=false;
   int c;
@@ -34,7 +32,7 @@ int main(int argc, char* argv[]) {
   unsigned columns = 10;
   unsigned ms = 333;
   unsigned rows = 10;
-  while ((c = getopt(argc,argv,"d:hsuc:r:t:")) != -1) {
+  while ((c = getopt(argc,argv,"d:huc:r:t:")) != -1) {
     switch (c) {
     case 'd':
       debug=true;
@@ -48,9 +46,6 @@ int main(int argc, char* argv[]) {
       if (!strcmp(optarg,"HIGH")) level = HIGH;
       else if (!strcmp(optarg,"MEDIUM")) level = MEDIUM;
       else if (!strcmp(optarg,"LOW")) level = LOW;
-      break;
-    case 's':
-      login=false;
       break;
     case 'h':
       return help(0);
@@ -74,7 +69,6 @@ int main(int argc, char* argv[]) {
   }
   Gui gui(debug,
 	  level,
-	  login,
 	  update,
 	  columns,
 	  rows,

@@ -38,6 +38,4 @@ enum LEVEL {
   HIGH
 };
 
-static const QString& PASSPHRASE = "FallingBlocks2016";
-
 #endif /*KEYVALUES_HPP_*/

@@ -6,7 +6,7 @@
 #include <QStackedWidget>
 
 #include "matrix.hpp"
-#include "passwordform.hpp"
+
 #include "definitions.hpp"
 
 class Gui : public QWidget {
@@ -14,21 +14,14 @@ class Gui : public QWidget {
 public:
   Gui(bool debug,
       LEVEL level,
-      bool login,
       bool update,
       unsigned columns,
       unsigned rows,
       unsigned ms,
       QWidget* parent=0);
   ~Gui();
-signals:
-  void terminateApp();
-private slots:
-  void changeIndex();
-  void quitAppSlot();
 private:
   Matrix *m_matrix;
-  //PasswordForm *m_password_form;
   QStackedWidget *m_main_stack;
   QVBoxLayout *m_main_layout;
 };
