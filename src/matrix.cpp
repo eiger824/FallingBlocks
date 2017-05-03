@@ -184,23 +184,34 @@ bool Matrix::computeSwiped() {
 
 void Matrix::mouseReleaseEvent(QMouseEvent *event) {
     m_swiping = false;
-    m_final.first = event->x();
-    m_final.second = event->y();
-    if (computeSwiped()) {
-        QMessageBox msgBox;
-        msgBox.setText("Exit");
-        msgBox.setInformativeText("Do you want to quit the application?");
-        msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Apply);
-        msgBox.setDefaultButton(QMessageBox::Apply);
-        int ret;
-        switch (ret = msgBox.exec()) {
-        case QMessageBox::Apply: QApplication::quit();
-        }
-    }
     m_final.first = 0;
     m_final.second = 0;
     m_init.first = 0;
     m_init.second = 0;
+}
+
+void Matrix::mouseMoveEvent(QMouseEvent *event)
+{
+    std::cout << "(swiping)=(" << m_swiping <<
+                 "):(x,y)=(" << event->x() << "," << event->y() << ")\n";
+    m_final.first = event->x();
+    m_final.second = event->y();
+    if (m_swiping) {
+        if (computeSwiped()) {
+            if (computeSwiped()) {
+                std::cout << "Swipe detected!\n";
+                QMessageBox msgBox;
+                msgBox.setText("Exit");
+                msgBox.setInformativeText("Do you want to quit the application?");
+                msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Apply);
+                msgBox.setDefaultButton(QMessageBox::Apply);
+                int ret;
+                switch (ret = msgBox.exec()) {
+                case QMessageBox::Apply: QApplication::quit();
+                }
+            }
+        }
+    }
 }
 
 void Matrix::mousePressEvent(QMouseEvent* event) {
