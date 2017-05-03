@@ -72,6 +72,9 @@ Matrix::Matrix(bool debug,
   show();
 }
 Matrix::~Matrix() {
+    delete m_timer;
+    delete m_label;
+    delete m_logger;
 }
 
 void Matrix::timerOut() {

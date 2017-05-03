@@ -23,7 +23,10 @@ Position::Position(unsigned int i,
   setLayout(m_main_layout);
 }
 
-Position::~Position() {}
+Position::~Position() {
+    delete m_label;
+    delete m_main_layout;
+}
 
 void Position::lock(unsigned int i,
 		    unsigned int j) {

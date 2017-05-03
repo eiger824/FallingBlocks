@@ -29,4 +29,8 @@ Gui::Gui(bool debug,
 }
 
 Gui::~Gui() {
+    //free memory
+    delete m_matrix;
+    delete m_main_layout;
+    delete m_main_stack;
 }
