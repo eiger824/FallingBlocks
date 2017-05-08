@@ -1,0 +1,15 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="se.mydns.mysland.DBusDaemon">
+    <signal name="sendShutdownSignal">
+      <arg name="appname" type="s" direction="out"/>
+    </signal>
+    <method name="registerApp">
+      <arg name="pid" type="i" direction="in"/>
+      <arg name="app" type="s" direction="in"/>
+    </method>
+    <method name="unregisterApp">
+      <arg name="pid" type="i" direction="in"/>
+    </method>
+  </interface>
+</node>

@@ -1,6 +1,6 @@
-#include <iostream>
 #include <QMessageBox>
 #include <QApplication>
+#include <glog/logging.h>
 #include "../include/matrix.hpp"
 
 QList<COLOR> m_colors(QList<COLOR>()
@@ -178,7 +178,6 @@ void Matrix::fillDefault() {
 }
 
 bool Matrix::computeSwiped() {
-    std::cout << "init.first = " << m_init.first << ", (final.first - init.first) = " << m_final.first - m_init.first << std::endl;
     if (m_init.first < 50 &&
             (m_final.first - m_init.first) > 150) {
         return true;
@@ -195,14 +194,12 @@ void Matrix::mouseReleaseEvent(QMouseEvent *event) {
 
 void Matrix::mouseMoveEvent(QMouseEvent *event)
 {
-    std::cout << "(swiping)=(" << m_swiping <<
-                 "):(x,y)=(" << event->x() << "," << event->y() << ")\n";
     m_final.first = event->x();
     m_final.second = event->y();
     if (m_swiping) {
         if (computeSwiped()) {
             if (computeSwiped()) {
-                std::cout << "Swipe detected!\n";
+                DLOG (INFO) << "Swipe detected!";
                 QMessageBox msgBox;
                 msgBox.setText("Exit");
                 msgBox.setInformativeText("Do you want to quit the application?");
@@ -210,7 +207,10 @@ void Matrix::mouseMoveEvent(QMouseEvent *event)
                 msgBox.setDefaultButton(QMessageBox::Apply);
                 int ret;
                 switch (ret = msgBox.exec()) {
-                case QMessageBox::Apply: QApplication::quit();
+                //before quitting, inform the app loader
+                case QMessageBox::Apply:
+                    emit exitApp();
+                    break;
                 }
             }
         }
